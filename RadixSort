@@ -1,0 +1,68 @@
+package try_;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+
+public class RadixSort {
+
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+//		int []arr={0,1,3,4,56,6,2,4,2,99,30,0,34,43,55,6,54,342,45,1234};
+		int []arr=new int[800000];
+		for(int i1=1;i1<arr.length;i1++){
+			arr[i1]=(int)(Math.random()*8000000);
+		}
+	
+		Date data1= new Date();
+		SimpleDateFormat simpleDateformat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String str1= simpleDateformat.format(data1);
+		System.out.println("time"+str1);
+		
+		radixsort(arr);
+//		System.out.println(""+Arrays.toString(arr));
+		
+		Date data2= new Date();
+//		SimpleDateFormat simpleDateformat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String str2= simpleDateformat.format(data2);
+		System.out.println("time"+str2);
+	}
+//建立栈，把位数对应的数字放入栈中，根据最大值的位数来循环n次排序
+	public static void radixsort(int []arr){
+//		寻找最大值的位数
+		int max=arr[0];
+		for (int i=1;i<arr.length;i++){
+			if(arr[i]>max){
+				max=arr[i];
+			}
+		}
+		int maxlength=(max+"").length();
+//		System.out.print(maxlength);
+		
+		int [][]bucket = new int[10][arr.length];
+		int []elementcounts = new int [arr.length];//初始化均为静态int 0
+//		主要地方，循环max数最大位次
+		int count=0;
+//		int [] sx=new int[arr.length];
+		for(int j=0,n=1;j<maxlength;j++,n*=10){
+//			arr数据放入二维列表bucket中
+			for (int k=0;k<arr.length;k++){
+				count= arr[k] / n %10;
+				bucket[count][elementcounts[count]]=arr[k];
+				elementcounts[count]++;
+//				sx[k]=count;
+			}
+//			数据按bucket顺序放入arr中
+		    int index=0;
+		    for (int m =0;m<10;m++)	{
+				if (elementcounts[m]!=0){
+					for (int x=0;x<elementcounts[m];x++){
+						arr[index]=bucket[m][x];
+						index++;
+					}
+					elementcounts[m]=0;
+				}
+			}
+		
+		}
+	}
+}
