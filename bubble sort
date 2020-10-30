@@ -1,0 +1,35 @@
+import java.util.Arrays;
+
+public class bubblesort {
+
+	public static void main(String[] args) {
+		// TODO 自动生成的方法存根
+		int []arr=new int[50000];
+		for (int k=0;k<arr.length-1;k++){
+			arr[k]=(int)(Math.random()*8000);
+		}
+		bubblesort(arr);
+//		System.out.println(""+Arrays.toString(arr));
+
+	}
+	public static void bubblesort(int[]arr){
+		int temp=0;
+		boolean flag=false;
+		for (int i=0;i<arr.length-1;i++){
+			for (int j=0; j<arr.length-1-i;j++){
+				if(arr[j]>arr[j+1]){
+					flag=true;
+					temp=arr[j+1];//不会存在溢出现象，假设arr.length=10，i=jmax=9；当j取8时，已经比较了arr[8]和arr[9]，不会存在arr[9]和arr[10]比较的现象
+					arr[j+1]=arr[j];
+					arr[j]=temp;
+				}
+			}
+		}
+		if(!flag){
+			return;
+		}else{
+			flag=false;
+		}
+	}
+
+}
